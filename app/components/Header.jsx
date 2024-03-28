@@ -7,7 +7,7 @@ const Header = () => {
   console.log("header");
 
   return (
-    <div className='w-full bg-black/70 py-2 fixed '>
+    <div className='w-full bg-black/70 py-2'>
         <div className='w-full h-[10vh] flex justify-between items-center px-11'>
             <Image src={Logo} alt="GDSC Logo" className='w-15 h-15'/>
             <ul className='flex gap-6 justify-between '>

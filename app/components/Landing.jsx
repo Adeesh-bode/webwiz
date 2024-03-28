@@ -5,7 +5,7 @@ const Landing = () => {
   console.log("Landing");
 
   return (
-    <div className='w-screen h-[90vh] flex flex-col justify-start items-center gap-5   pt-20'>
+    <div className='w-screen justify-start items-center gap-5   pt-15'>
         <Hero/>
         <Features/>
     </div>

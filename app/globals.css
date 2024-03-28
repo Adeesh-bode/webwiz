@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 *{
   box-sizing: border-box;
   margin: 0;
@@ -14,18 +13,10 @@
   display: none;
 }
 body{
-  /* @apply bg-[url{"/bg.svg"}] bg-cover bg-center; */
   background-image: url("/bg.svg");
   background-repeat: no-repeat;
   object-fit: cover;
   width: 100%;
   height: 100%;
-}
-@font-face {
-  font-family: 'Cinzel Decorative';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: local('Cinzel Decorative'), url('/path-to-your-font/CinzelDecorative-Bold.woff2') format('woff2');
 }
 
