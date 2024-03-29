@@ -1,3 +1,22 @@
+export const navlinks =[
+  {
+    title: 'Home',
+    link: '#',
+  },
+  {
+    title: 'About',
+    link: '#',
+  },
+  {
+    title: 'Events',
+    link: '#',
+  },
+  {
+    title: 'Contact',
+    link: '#',
+  },
+]
+
 const features =[
     {
         title:'Blue Crystal Ice',
