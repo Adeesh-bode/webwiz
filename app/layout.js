@@ -13,6 +13,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-      <body className={CinzelDecorative.className}>{children}</body>
+      <div className={`${CinzelDecorative.className} relative flex flex-col justify-between items-center min-h-screen ` }>
+        <img src={'/bgtop.svg'} alt="Top"  className='absolute top-0 w-full z-0'/>
+
+        {/* {children} Main content goes here */}
+
+        <div className="flex flex-col flex-1 relative z-10">
+          {children}
+        </div>
+
+        <img src={'/bgbottom.svg'} alt="Bottom"  className="absolute bottom-0 w-full z-0" />
+    </div>
   );
 }

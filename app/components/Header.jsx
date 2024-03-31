@@ -20,7 +20,7 @@ const Header = () => {
               }
             </div>
             <div className='flex gap-5'>
-                <button className='bg-teal-500 rounded-md  px-3 py-1 '>Sign Up</button>
+                <button className='bg-[#E7A4ED] text-[#3B1C63] rounded-md  px-3 py-1 '>Sign Up</button>
                 <MdAccountCircle size={40} color='white'/>
             </div>
         </div> 

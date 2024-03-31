@@ -12,7 +12,7 @@ const Footer = () => {
   console.log("footer");
   console.log(footerData);
   return (
-    <div id='contact' className='h-fit w-screen text-center flex flex-col md:flex-row justify-between items-start px-20 py-8  bg-black/15 '>
+    <div id='contact' className='h-fit w-screen text-center flex flex-col md:flex-row justify-between items-start px-20 py-8  mt-[200px] bg-black/15 '>
       <div className='w-80 flex flex-col items-center gap-6 '>
         <h2 className='text-xl'>Need Help?</h2>
         <p className='text-center font-thin'>
