@@ -14,7 +14,7 @@ const Header = () => {
               {
                 navlinks.map((item,index)=>{
                   return(
-                    <a href={item.link} className='text-white' key={index}  >{ item.title }</a>
+                    <a href={item.link} className='text-white underline-animation' key={index}  >{ item.title }</a>
                   )
                 })
               }

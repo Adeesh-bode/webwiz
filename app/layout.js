@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
 
         {/* {children} Main content goes here */}
 
-        <div className="flex flex-col flex-1 relative z-10">
+        <div className="flex flex-col flex-1 relative z-10 custom-cursor">
           {children}
         </div>
 
