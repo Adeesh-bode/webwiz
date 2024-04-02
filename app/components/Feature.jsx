@@ -1,17 +1,16 @@
 import React from 'react'
-import Image from 'next/image'
 import '../globals.css';
+
 const Feature = ({ index, feature }) => {
-    // console.log(index, feature); // observe its console happens like server side even if no client server is made @nextjs 
-   return (
-    <div className={`w-screen h-[100vh] flex justify-between  items-center px-56 ${ index%2!=0 && 'flex-row-reverse' } `}>
-        <Image src={feature.path} alt={feature.title} width={275} height={275} />
-        <div className='flex flex-col gap-8'>
-            <h1  className='text-5xl bg-gradient-to-b from-gray-900 to-white bg-clip-text text-transparent'>{feature.title}</h1>
-            <p className='w-[500px] font-sans font-extralight text-xl'>{feature.description}</p>
+    return (
+        <div className={`min-h-screen flex flex-col md:flex-row ${index % 2 !== 0 && 'md:flex-row-reverse'} justify-between items-center px-4 md:px-56 w-full`}>
+            <img src={feature.path} alt={feature.title} className="w-40 md:w-64 h-auto max-w-xs mx-auto my-4 md:my-0" />
+            <div className='flex flex-col gap-8 items-center md:items-start text-center md:text-left'>
+                <h1 className='text-3xl md:text-5xl bg-gradient-to-b from-gray-900 to-white bg-clip-text text-transparent'>{feature.title}</h1>
+                <p className='w-full md:w-[500px] font-sans font-extralight text-sm md:text-xl'>{feature.description}</p>
+            </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default Feature;

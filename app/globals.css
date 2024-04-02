@@ -8,6 +8,7 @@
   padding: 0;
   color: white;
   /* outline: 2px solid red; */
+  /* border-right: 2px solid yellow ; */
 }
 ::-webkit-scrollbar{
   display: none;
@@ -20,8 +21,8 @@ body{
   /* background-image: url("/bg.svg"); */
   /* background-repeat: no-repeat; */
   /* object-fit: cover; */
-  width: 100%;
-  height: 100%;
+  /* width: 100%;
+  height: 100%; */
 }
 /* .custom-cursor {
   /* Assuming your SVG is hosted at the given URL */
@@ -43,3 +44,19 @@ body{
   width: 100%; /* Expand underline to full width on hover */
 }
 
+
+.hero{
+  background-image: url("/bgtop.svg");
+  background-repeat: no-repeat;
+  object-fit: cover;
+  background-position: center;
+  /* width: 100%;  */
+  /* height: 100%; */
+}
+.footer{
+  background-image: url("/bgbottom.svg");
+  background-repeat: no-repeat;
+  object-fit: cover;
+  background-position: bottom;
+
+}
