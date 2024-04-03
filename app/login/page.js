@@ -6,7 +6,6 @@ import React, { useState, useEffect } from "react";
 import {
   signInWithEmailAndPassword,
   signInWithPopup,
-  GoogleAuthProvider,
   onAuthStateChanged,
 } from "firebase/auth";
 import { auth, provider, db } from "../utils/firebaseconfig"; // Assuming auth, provider, db are exported from firebaseconfig
@@ -17,7 +16,10 @@ import { FaExternalLinkAlt } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 
+import { useRouter } from 'next/navigation';
+
 const Login = () => {
+  const router = useRouter();
   // const navigate = useNavigate();
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const [hide, setHide] = useState(false);
@@ -70,7 +72,7 @@ const Login = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        navigate("/");
+        router.push("/");
         console.log("User is signed in:", user);
       } else {
         console.log("User is not signed in");
@@ -80,11 +82,11 @@ const Login = () => {
   }, []);
 
   return (
-   <div className="min-h-screen flex gap-4 items-center justify-center bg-[#121215]">
+   <div className="font-serif min-h-screen flex gap-4 items-center justify-center bg-[#121215]">
       <div className="m-2 bg-[#18181C] rounded-xl p-4 w-full max-w-2xl lg:w-l shadow-md flex gap-6 justify-evenly items-center">
          <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-4">
-               <h1 className="py-2 text-4xl text-teal-400 font-semibold text-center">
+               <h1 className="py-2 text-4xl text-[#E7A4ED] font-semibold text-center">
                Login
                </h1>
                <input
@@ -106,7 +108,7 @@ const Login = () => {
                   {/* <button className="text-zinc-200 bg-[#84849D] hover:bg-[#835FF5] px-4 py-2 rounded-lg" type="button" onClick={handleHide}>
                      {hide ? "Hide" : "Show"}
                   </button> */}
-                  <button className="text-zinc-200 bg-[#84849D] hover:bg-teal-400 px-4 py-2 rounded-lg" type="button" onClick={handleHide}>
+                  <button className="text-zinc-200 bg-[#84849D] hover:#E7A4ED px-4 py-2 rounded-lg" type="button" onClick={handleHide}>
                      {hide ? <FaEye /> : <FaEyeSlash /> }
 
                   </button>
@@ -115,21 +117,21 @@ const Login = () => {
                <input
                   type="submit"
                   value='Login' 
-                  className="text-zinc-200 bg-teal-400 hover:bg-transparent hover: border hover:border-white px-4 py-2 rounded-lg cursor-pointer"/>
+                  className="text-zinc-200 #E7A4ED hover:bg-transparent hover: border hover:border-white px-4 py-2 rounded-lg cursor-pointer"/>
                
-               <button type='button' onClick={handleGoogleSignin} className='text-white justify-center flex items-center gap-2 bg-teal-400 hover:bg-transparent hover: border hover:border-white  px-4 py-2 rounded-lg'>
+               <button type='button' onClick={handleGoogleSignin} className='text-white justify-center flex items-center gap-2 #E7A4ED hover:bg-transparent hover: border hover:border-white  px-4 py-2 rounded-lg'>
                   <FcGoogle size={30} />
                   Sign in with Google
                </button>
 
-               <div onClick={() => navigate('/signup')} className='text-teal-400 flex justify-center gap-2 items-center cursor-pointer'>
+               <div onClick={() => router.push('/signup')} className='text-[#E7A4ED] flex justify-center gap-2 items-center cursor-pointer'>
                   <FaExternalLinkAlt />
                   Don't have an account?
                </div>
             </div>
          </form>
          <div className='w-fit h-fit flex flex-col justify-between items-center'>
-            <div className="text-teal-400">Let's Connect</div>
+            <div className="text-[#E7A4ED]">Let's Connect</div>
             <img src={'/connect.gif'} alt='interactive-img' />
          </div>
       </div>

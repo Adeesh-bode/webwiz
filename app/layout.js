@@ -16,8 +16,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <div className={CinzelDecorative.className}>
-      {children}
-    </div>
-  );
+    <html lang="en">
+      <body className={CinzelDecorative.className}>
+        {/* Layout UI */}
+        <main>{children}</main>
+      </body>
+    </html>
+  )
 }

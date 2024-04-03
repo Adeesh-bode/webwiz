@@ -1,10 +1,29 @@
-'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MdAccountCircle, MdMenu, MdClose } from 'react-icons/md';
 import { navlinks } from '../data';
 
+import { onAuthStateChanged } from 'firebase/auth';
+
+import { useRouter } from 'next/navigation';
+import { auth } from '../utils/firebaseconfig';
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
+  const [userState, setUserState] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log("User Signed in:", user.uid);
+        setUserState(true);
+      } else {
+        console.log("User Signed not signed in ");
+        setUserState(false);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   return (
     <div className='fixed w-screen bg-black/70 z-50'>
@@ -16,7 +35,7 @@ const Header = () => {
           {isMenuOpen ? <MdClose size={24} /> : <MdMenu size={24} />}
         </div>
 
-        {/* Menu Items for large screens */}
+        {/* Menu Items large screens */}
         <div className={`hidden md:flex gap-6 justify-between`}>
           {navlinks.map((item, index) => (
             <a href={item.link} className='text-white text-xl underline-animation' key={index}>
@@ -25,16 +44,21 @@ const Header = () => {
           ))}
         </div>
 
-        {/* Icons for large screens */}
-        <div className='hidden md:flex gap-5'>
-          <button className='bg-[#E7A4ED] text-[#3B1C63] rounded-md px-3 py-1 text-xl'>
-            Login
-          </button>
-          <MdAccountCircle size={40} color='white' />
+        {/* Icons large screens */}
+        <div className='hidden md:flex gap-5 h-fit md:items-center'>
+            
+              {!userState && ( // Only show login button if not logged in
+                <button className='bg-[#E7A4ED] text-[#3B1C63] rounded-md px-3 py-1 text-xl' onClick={() => router.push('/login')}>
+                  Login
+                </button>
+              )}
+              {userState && ( 
+                <MdAccountCircle size={40} color='white' />
+              )}
         </div>
       </div>
 
-      {/* Menu for Mobile Screens */}
+      {/* Menu Mobile Screens */}
       {isMenuOpen && (
         <div
           className='flex flex-col items-center bg-black/80 py-4 w-full absolute top-[10.5vh] left-0'
@@ -45,9 +69,15 @@ const Header = () => {
               {item.title}
             </a>
           ))}
-          <button className='bg-[#E7A4ED] text-[#3B1C63] rounded-md px-3 py-1 text-lg mt-4'>
-            Login
-          </button>
+
+          {
+            
+          }
+          {!userState && ( // login button if not logged in
+            <button className='bg-[#E7A4ED] text-[#3B1C63] rounded-md px-3 py-1 text-lg mt-4' onClick={() => router.push('/login')}>
+              Login
+            </button>
+          )}
         </div>
       )}
     </div>

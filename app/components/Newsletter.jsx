@@ -2,7 +2,7 @@ import { FaLinkedin, FaFacebook, FaTwitter, FaInstagram , FaGithub } from 'react
 
 const Newsletter = () => {
     return (
-        <div className="relative w-full bg-cover bg-no-repeat bg-fixed bg-center flex flex-col md:flex-row justify-center gap-10 items-center" style={{backgroundImage: "url('../../../assets/newsletter-bg.jpeg')"}}>
+        <div className="relative w-full flex flex-col md:flex-row justify-center gap-10 items-center" >
             <div className=" flex flex-col  items-center gap-2 p-5 md:gap-4 md:p-8">
                 <h4 className="small-text uppercase font-medium text-gray-500 text-xs md:text-base">Newsletter</h4>
                 <h2 className="big-text uppercase font-medium text-xs md:text-xl font-sans">Sign up for latest updates and offers</h2>
@@ -13,11 +13,11 @@ const Newsletter = () => {
                 <h5 className="text text-gray-500 text-xs md:text-sm font-sans font-extralight">Will be used in accordance with our policy</h5>
             </div>
                 <div className="social-icons flex  md:flex-col justify-between items-center gap-3 h-full">
-                <FaLinkedin size={20} />
-                <FaFacebook size={20} />
-                <FaGithub size={20} />
-                <FaInstagram size={20} />
-                <FaTwitter size={20} />
+                    <FaLinkedin size={20} />
+                    <FaFacebook size={20} />
+                    <FaGithub size={20} />
+                    <FaInstagram size={20} />
+                    <FaTwitter size={20} />
                 </div>
         </div>
     );

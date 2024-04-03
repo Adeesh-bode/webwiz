@@ -5,12 +5,15 @@ import { FaExternalLinkAlt } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 
-import { useNavigate } from 'next/navigation';
-import { onAuthStateChanged } from 'firebase/auth';
-import {  auth } from '../utils/firebaseconfig';
+import { useRouter } from 'next/navigation';
+import { createUserWithEmailAndPassword, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
+import { doc, setDoc } from "firebase/firestore";
+
+import { auth, db, provider } from '../utils/firebaseconfig';
+
 
 const Signup = () => {
-    const navigate = useNavigate();
+  const router = useRouter();
 
   const [credentials, setCredentials] = useState({ email: '', password: '', username: '' });
   const [passwordStrength, setPasswordStrength] = useState(false);
@@ -25,14 +28,14 @@ const Signup = () => {
     if (e.target.name === 'password') {
         setPasswordStrength(e.target.value.length >= 6);
     }
-
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { email, password, username } = credentials;
     try {
-
+      const { user } = await createUserWithEmailAndPassword(auth, email, password);
+      await setDoc(doc(db, "users", user.uid), { uid: user.uid, username, email, password });
       console.log("Successfully Signed Up");
       console.log("User created and todos document initialized!");
     } catch (error) {
@@ -42,7 +45,9 @@ const Signup = () => {
 
   const handleGoogleSignin = async () => {
     try {
-
+      const result = await signInWithPopup(auth, provider);
+      const { uid, displayName, email } = result.user;
+      await setDoc(doc(db, "users", uid), { uid, username: displayName, email, password: "" });
       console.log("Successfully Logged in using Google");
       console.log("User created and todos document initialized!");
     } catch (error) {
@@ -52,18 +57,18 @@ const Signup = () => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-        if (user) navigate('/');
+        if (user) router.push('/');
         else console.log("User is not signed in");
       });
       return () => unsubscribe(); // Cleanup subscription on component unmount
-  }, [navigate]);
+  }, []);
 
   return (
-    <div className="min-h-screen w-screen flex gap-4 items-center justify-center bg-[#121215]">
+    <div className="font-serif min-h-screen w-screen flex gap-4 items-center justify-center bg-[#121215]">
       <div className='bg-[#18181C] rounded-xl p-2 md:p-4 w-5/6 md:w-1/2 shadow-md flex flex-col gap-3 md:gap-5 justify-evenly items-center md:flex-row'>
         <form onSubmit={handleSubmit}>
           <div className='flex flex-col gap-2 md:gap-4'>
-            <h1 className="py-2 text-4xl text-teal-400 font-semibold text-center">
+            <h1 className="py-2 text-4xl text-[#E7A4ED] font-semibold text-center">
               Sign up
             </h1>
             <input
@@ -90,7 +95,7 @@ const Signup = () => {
                   onChange={handleChange}
                   className="py-2 px-4 w-full rounded-lg bg-[#302D36] focus:outline-none caret-slate-100 font-medium text-[#F5F8FF]"
               />
-              <button className="text-zinc-200 bg-[#84849D] hover:bg-teal-400 px-4 py-2 rounded-lg" type="button" onClick={handleHide}>
+              <button className="text-zinc-200 bg-[#84849D] hover:#E7A4ED px-4 py-2 rounded-lg" type="button" onClick={handleHide}>
                 {hide? <FaEyeSlash/> : <FaEye />} 
               </button>
             </div>
@@ -100,21 +105,21 @@ const Signup = () => {
             <input
                   type="submit"
                   value='Sign Up' 
-                  className="text-zinc-200 bg-teal-400 hover:bg-transparent hover: border hover:border-white px-4 py-2 rounded-lg cursor-pointer"/>
+                  className="text-zinc-200 #E7A4ED hover:bg-transparent hover: border hover:border-white px-4 py-2 rounded-lg cursor-pointer"/>
 
-            <button type='button' onClick={handleGoogleSignin} className='text-white justify-center flex items-center gap-2 bg-teal-400 hover:bg-transparent hover: border hover:border-white px-4 py-2 rounded-lg'>
+<button type='button' onClick={handleGoogleSignin} className='text-white justify-center flex items-center gap-2 #E7A4ED hover:bg-transparent hover: border hover:border-white px-4 py-2 rounded-lg'>
               <FcGoogle size={30} />
               Sign up with Google
             </button>
 
-            <div onClick={() => navigate('/login')} className='text-teal-400 flex justify-center gap-2 items-center cursor-pointer'>
+            <div onClick={() => router.push('/login')} className='text-[#E7A4ED] flex justify-center gap-2 items-center cursor-pointer'>
               <FaExternalLinkAlt />
               Already have an account?
             </div>
           </div>
         </form>
         <div className='w-fit h-fit flex flex-col justify-between items-center'>
-            <div className="text-teal-400">Let's Connect</div>
+            <div className="text-[#E7A4ED]">Let's Connect</div>
             <img src={'/connect.gif'} alt='interactive-img' />
         </div>
       </div>
