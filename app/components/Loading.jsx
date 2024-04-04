@@ -2,10 +2,8 @@ import React from 'react';
 
 const loading = () => {
   return (
-    <div>
-        <video autoPlay loop className="w-full h-screen object-cover">
-            <source src={'/loading.mp4'} type="video/mp4" />
-        </video>
+    <div className='w-full h-screen flex justify-center items-center bg-white'>
+        <img src={'/wand.gif'} alt='interactive loading wand' className='w-28' />
     </div>
   )
 }

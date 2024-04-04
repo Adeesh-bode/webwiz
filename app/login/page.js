@@ -1,6 +1,3 @@
-/// this page.js inside app/login( first letter should be small ) so this is with "/login" with domain ( rem this file should be named page.js only)
-// import React from 'react'
-
 'use client'
 import React, { useState, useEffect } from "react";
 import {
@@ -18,7 +15,14 @@ import { FaEye } from "react-icons/fa";
 
 import { useRouter } from 'next/navigation';
 
+// import useCustomSnackbar from '../utils/notistack';
+import { useSnackbar } from 'notistack';
+
 const Login = () => {
+  // const showSnackbar = useCustomSnackbar(); 
+  const { enqueueSnackbar } = useSnackbar(); // Directly use useSnackbar here
+
+
   const router = useRouter();
   // const navigate = useNavigate();
   const [credentials, setCredentials] = useState({ email: "", password: "" });
@@ -44,8 +48,24 @@ const Login = () => {
         credentials.password
       );
       console.log("Successfully Logged In");
+      // showSnackbar('Log in Successful',3000, 'success');
+      enqueueSnackbar('Log in Successful', { variant: 'success', autoHideDuration: 3000 });
+
     } catch (error) {
       console.error(error.message);
+
+      if(error.code === "auth/invalid-credential" || error.code === "auth/invalid-email"){
+        // showSnackbar('Incorrect E-mail or Password',3000, 'failure');
+        enqueueSnackbar('Incorrect E-mail or Password', { variant: 'error', autoHideDuration: 3000 });
+
+      }
+        else if(error.code === 'auth/network-request-failed'){
+        // showSnackbar('Check Your Network Connection',3000, 'success');
+        enqueueSnackbar('Check Your Network Connection', { variant: 'warning', autoHideDuration: 3000 });
+      }
+      else {
+        enqueueSnackbar('An unexpected error occurred', { variant: 'error', autoHideDuration: 3000 });
+      }
     }
   };
 
@@ -55,8 +75,6 @@ const Login = () => {
       console.log("Successfully Logged in using Google", result);
       const { uid, displayName, email } = result.user;
       await setDoc(doc(db, "todos", uid), { data: [] });
-      console.log("User created and todos document initialized!");
-
       await setDoc(doc(db, "users", uid), {
         uid,
         username: displayName,

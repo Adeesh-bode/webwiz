@@ -11,8 +11,14 @@ import { doc, setDoc } from "firebase/firestore";
 
 import { auth, db, provider } from '../utils/firebaseconfig';
 
+import { useSnackbar } from 'notistack';
+
+// import useCustomSnackbar from '../utils/notistack';
 
 const Signup = () => {
+  // const showSnackbar = useCustomSnackbar(); 
+  const { enqueueSnackbar } = useSnackbar(); // Directly use useSnackbar here
+
   const router = useRouter();
 
   const [credentials, setCredentials] = useState({ email: '', password: '', username: '' });
@@ -37,9 +43,24 @@ const Signup = () => {
       const { user } = await createUserWithEmailAndPassword(auth, email, password);
       await setDoc(doc(db, "users", user.uid), { uid: user.uid, username, email, password });
       console.log("Successfully Signed Up");
-      console.log("User created and todos document initialized!");
+      // showSnackbar('Sign Up Successful',3000, 'success');
+      enqueueSnackbar('Sign up Successful', { variant: 'success', autoHideDuration: 3000 });
+      
+      
     } catch (error) {
       console.error("Error signing up:", error.message);
+      if(error.code === "auth/invalid-credential" || error.code === "auth/invalid-email"){
+        // showSnackbar('Incorrect E-mail or Password',3000, 'failure');
+        enqueueSnackbar('Incorrect E-mail or Password', { variant: 'error', autoHideDuration: 3000 });
+
+      }
+        else if(error.code === 'auth/network-request-failed'){
+        // showSnackbar('Check Your Network Connection',3000, 'success');
+        enqueueSnackbar('Check Your Network Connection', { variant: 'warning', autoHideDuration: 3000 });
+      }
+      else {
+        enqueueSnackbar('An unexpected error occurred', { variant: 'error', autoHideDuration: 3000 });
+      }
     }
   };
 

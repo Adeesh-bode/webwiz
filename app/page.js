@@ -1,4 +1,3 @@
-/// this page.js immediately inside app so this is with "/" with domain 
 'use client'
 import Header from "./components/Header";
 import Landing from "./components/Landing";
@@ -11,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 import { auth, db } from "./utils/firebaseconfig";
+
 
 export default function Home() {
   const router = useRouter();
