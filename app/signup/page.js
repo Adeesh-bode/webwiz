@@ -41,11 +41,10 @@ const Signup = () => {
     const { email, password, username } = credentials;
     try {
       const { user } = await createUserWithEmailAndPassword(auth, email, password);
-      await setDoc(doc(db, "users", user.uid), { uid: user.uid, username, email, password });
+      // await setDoc(doc(db, "users", user.uid), { uid: user.uid, username, email, password });
       console.log("Successfully Signed Up");
       // showSnackbar('Sign Up Successful',3000, 'success');
       enqueueSnackbar('Sign up Successful', { variant: 'success', autoHideDuration: 3000 });
-      
       
     } catch (error) {
       console.error("Error signing up:", error.message);
@@ -57,9 +56,6 @@ const Signup = () => {
         else if(error.code === 'auth/network-request-failed'){
         // showSnackbar('Check Your Network Connection',3000, 'success');
         enqueueSnackbar('Check Your Network Connection', { variant: 'warning', autoHideDuration: 3000 });
-      }
-      else {
-        enqueueSnackbar('An unexpected error occurred', { variant: 'error', autoHideDuration: 3000 });
       }
     }
   };
