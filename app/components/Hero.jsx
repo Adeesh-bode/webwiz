@@ -8,7 +8,7 @@ const Hero = () => {
       // initial={{ opacity:  1 , x: -100}}
       // animate={{ opacity: 1 ,x:0 }}
       // transition={{ duration: 1 }}
-      className=' hero w-screen h-screen flex flex-col justify-start items-center gap-5 py-16 md:py-28'
+      className=' hero w-screen h-screen flex flex-col justify-center items-center gap-5  md:py-28'
     >
         <div className='text-[40px] md:text-[90px] bg-gradient-to-b from-white to-[#F9FB6B] bg-clip-text text-transparent'>Web-Wiz 2.0</div>
         <div className='text-white w-2/3 md:w-1/3  text-center'>
