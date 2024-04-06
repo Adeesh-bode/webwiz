@@ -2,11 +2,16 @@ import React from 'react';
 import { FaLinkedin, FaFacebook, FaTwitter, FaInstagram, FaGithub } from 'react-icons/fa';
 import { footerData } from '../data';
 
+import { motion } from 'framer-motion';
 const Footer = () => {
   console.log("footer");
   // console.log(footerData);
   return (
-    <div id='contact' className='footer h-fit w-full text-center flex flex-col md:flex-row justify-between items-center md:items-start  px-4 md:px-20 py-8 md:py-11  md:mt-[80px] space-y-6 md:space-y-0'>
+    <motion.div id='contact' 
+     className='footer h-fit w-full text-center flex flex-col md:flex-row justify-between items-center md:items-start  px-4 md:px-20 py-8 md:py-11  md:mt-[80px] space-y-6 md:space-y-0'
+     initial={{opacity:0, y: 10 }}
+     animate={{opacity:1 , y:0, transition: { duration: 3} }}
+    >
       <div className='w-full md:w-80 flex flex-col items-center gap-6'>
         <h2 className='text-xl text-center'>Need Help?</h2>
         <p className=' font-sans font-extralight text-lg text-center'>
@@ -29,7 +34,7 @@ const Footer = () => {
           ))}
         </div>
       ))}
-    </div>
+    </motion.div>
   );
 }
 

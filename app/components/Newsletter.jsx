@@ -1,8 +1,11 @@
 import { FaLinkedin, FaFacebook, FaTwitter, FaInstagram , FaGithub } from 'react-icons/fa';
-
+import { motion } from 'framer-motion';
 const Newsletter = () => {
     return (
-        <div className="relative w-full flex flex-col md:flex-row justify-center gap-10 items-center" >
+        <motion.div className="relative w-full flex flex-col md:flex-row justify-center gap-10 items-center" 
+         initial={{opacity:0, y: 50 }}
+         animate={{opacity:1 , y:0, transition: { duration: 3} }}
+        >
             <div className=" flex flex-col  items-center gap-2 p-5 md:gap-4 md:p-8">
                 <h4 className="small-text uppercase font-medium text-gray-500 text-xs md:text-base">Newsletter</h4>
                 <h2 className="big-text uppercase font-medium text-xs md:text-xl font-sans">Sign up for latest updates and offers</h2>
@@ -19,7 +22,7 @@ const Newsletter = () => {
                     <FaInstagram size={20} />
                     <FaTwitter size={20} />
                 </div>
-        </div>
+        </motion.div>
     );
 };
 
